@@ -21,28 +21,26 @@ export default function Joke() {
   const [joke, setJoke] = useState("...");
   const [dadJoke, setDadJoke] = useState("Dad Joke");
 
+  function fetchDadJoke() {
+    console.log("Fetching dadJoke");
+    fetch("https://icanhazdadjoke.com/", {
+      headers: { Accept: "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => setDadJoke(data))
+      .then(console.log("fetch time: " + new Date().toString()))
+      .catch((err) => console.log("Error: " + err));
+  }
+
   useEffect(() => {
-    function fetchDadJoke() {
-      console.log("Fetching dadJoke");
-      fetch("https://icanhazdadjoke.com/", {
-        headers: { Accept: "application/json" },
-      })
-        .then((res) => res.json())
-        .then((data) => setDadJoke(data))
-        .then(console.log("fetch time: " + new Date().toString()))
-        .catch((err) => console.log("Error: " + err));
-    }
-    let swap = setInterval(fetchDadJoke, 10000);
-    /*
-    
-    function myStopFunction(what) {
-      clearTimeout(what);
-      return "You have attempted to leave this page";
-    }
-    window.onbeforeunload = myStopFunction(swap);
-    */
-    // fetchDadJoke();
-  }, []);
+    const interval = setInterval(() => {
+      fetchDadJoke();
+    }, 10000);
+    return () => {
+      clearInterval(interval);
+      alert("Hov, du er på  vej væk");
+    };
+  }, [joke]);
 
   function fetchNorrisJoke() {
     fetch("https://api.chucknorris.io/jokes/random")

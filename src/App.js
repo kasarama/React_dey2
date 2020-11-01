@@ -1,6 +1,7 @@
 import "./App.css";
 import Count from "./ex1";
 import Joke from "./joke";
+import AllMembers from "./ListDemo";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <br />
         <br />
         <Joke />
+        <br />
+        <AllMembers />
       </header>
     </div>
   );
