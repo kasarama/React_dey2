@@ -22,7 +22,7 @@ function MemberTable(props) {
       </thead>
       <tbody>
         {members.map((member) => (
-          <tr>
+          <tr key={members.indexOf(member)}>
             <td>{member.name}</td>
             <td>{member.age}</td>
           </tr>
